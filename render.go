@@ -168,8 +168,7 @@ func (r *Render) Render(buffer *Buffer, completion *CompletionManager) {
 		return
 	}
 
-	// Erasing
-	r.clear(r.previousCursor)
+	r.backward(r.previousCursor, r.previousCursor)
 
 	line := buffer.Text()
 	prefix := r.getCurrentPrefix()
@@ -193,6 +192,7 @@ func (r *Render) Render(buffer *Buffer, completion *CompletionManager) {
 	r.out.SetColor(r.inputTextColor, r.inputBGColor, false)
 	r.out.WriteStr(line)
 	r.out.SetColor(DefaultColor, DefaultColor, false)
+	r.out.EraseDown()
 
 	cursor = r.backward(cursor, len(line)-buffer.CursorPosition)
 
